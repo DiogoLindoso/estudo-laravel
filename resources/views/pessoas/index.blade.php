@@ -1,45 +1,34 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pessoas</title>
-    <style>
-      table, th, td {
-        border: 1px solid black;
-      }
-    </style>
-</head>
-<body>
-    <h1>Pessoas Cadastradas</h1>
+@extends('template.base')
+@section('titulo','Pessoas Cadastradas')
+@section('conteudo')
+    
+  <h1>Pessoas Cadastradas</h1>
 
-    <a href="/pessoas/create">Novo Cadastro</a>
+  <a href="/pessoas/create">Novo Cadastro</a>
 
-    <hr>
+  <hr>
 
-    <table style="width:100%">
+  <table style="width:100%">
+      <tr>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+      @foreach ($pessoas as $p)
         <tr>
-          <th>Nome</th>
-          <th>Telefone</th>
-          <th>Email</th>
-          <th>Ações</th>
+          <td>{{ $p->nome }}</td>
+          <td>{{ $p->telefone }}</td>
+          <td>{{ $p->email }}</td>
+          <td>
+            <!-- Essa linha faz tal coisa 1 -->
+            {{-- Essa linha faz tal coisa 2 --}}
+            <a href="/pessoas/{{ $p->id }}/edit">Editar</a>
+            <a href="/pessoas/{{ $p->id }}">Excluir</a>
+          </td>
         </tr>
-        @foreach ($pessoas as $p)
-          <tr>
-            <td>{{ $p->nome }}</td>
-            <td>{{ $p->telefone }}</td>
-            <td>{{ $p->email }}</td>
-            <td>
-              <!-- Essa linha faz tal coisa 1 -->
-              {{-- Essa linha faz tal coisa 2 --}}
-              <a href="/pessoas/{{ $p->id }}/edit">Editar</a>
-              <a href="/pessoas/{{ $p->id }}">Excluir</a>
-            </td>
-          </tr>
-        @endforeach
-      </table>
+      @endforeach
+    </table>
 
-      {{ $pessoas->links() }}
-</body>
-</html>
+    {{ $pessoas->links() }}
+@endsection
