@@ -3,7 +3,7 @@
 @section('conteudo')
     
     <h1>Formulário de Pessoa</h1>
-    @if ($errors->any())
+    {{-- @if ($errors->any())
     
         <div class="alert alert-danger">
             <ul>
@@ -12,7 +12,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
     @if (isset($pessoa))
         <form action="/pessoas/{{ $pessoa->id }}" method="post">
             @method('PUT')
@@ -23,11 +23,16 @@
         <div class="form-group">
           <label for="nome">Nome</label>
           <input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome">
-          {{-- <small id="nome" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+          @error('nome')
+            <small class="text-danger">{{$message}}</small> 
+          @enderror
         </div>
         <div class="form-group">
           <label for="telefone">Telefone</label>
           <input type="text" class="form-control" id="telefone" name="telefone">
+          @error('telefone')
+          <small class="text-danger">{{$message}}</small> 
+        @enderror
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
