@@ -3,7 +3,16 @@
 @section('conteudo')
     
     <h1>Formulário de Pessoa</h1>
-
+    @if ($errors->any())
+    
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @if (isset($pessoa))
         <form action="/pessoas/{{ $pessoa->id }}" method="post">
             @method('PUT')
@@ -11,11 +20,22 @@
         <form action="/pessoas" method="post">
     @endif
         @csrf
-        <input type="text" name="nome" placeholder="Nome" value="{{ $pessoa->nome ?? '' }}">
-        <input type="text" name="telefone" placeholder="Telefone" value="{{ $pessoa->telefone ?? '' }}">
-        <input type="email" name="email" placeholder="Email" value="{{ $pessoa->email ?? '' }}">
-        <input type="submit" value="Salvar">
-    </form>
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome">
+          {{-- <small id="nome" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input type="text" class="form-control" id="telefone" name="telefone">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+            {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+          </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </form>
 
     <a href="/pessoas">Voltar</a>
 @endsection
