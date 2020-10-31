@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pessoa;
+use App\User;
 use App\Http\Requests\StorePessoaPost;
 
 class PessoaController extends Controller
@@ -11,8 +12,8 @@ class PessoaController extends Controller
     public function index()
     {
         // $pessoas = \App\Pessoa::all();
-        $pessoas = Pessoa::paginate(10);
-
+        $pessoas = auth()->user()->pessoas()->paginate(10);
+        
         return view('pessoas.index', compact('pessoas'));
     }
 
@@ -32,8 +33,8 @@ class PessoaController extends Controller
 
         $pessoa->save();
         */
-        Pessoa::create($request->all());
-
+        // Pessoa::create($request->all());
+        auth()->user()->pessoas()->create($request->all());
         return redirect('/pessoas');
     }
 

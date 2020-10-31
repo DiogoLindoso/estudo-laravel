@@ -10,7 +10,8 @@ class Pessoa extends Model
         'nome',
         'telefone',
         'email',
-        'cpf'
+        'cpf',
+        'user_id'
     ];
     public function getCpfAttribute($value){
     
